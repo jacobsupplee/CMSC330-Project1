@@ -5,9 +5,9 @@
 
 //I have added four new parseImages methods: ISOSCELES, PARALLELOGRAM, REGULAR_POLYGON, and TEXT 
 import java.io.*;
+import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-
 // This class provides the skeleton parser for project 1
 
 class Parser {
