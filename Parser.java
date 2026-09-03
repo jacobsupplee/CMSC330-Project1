@@ -1,9 +1,9 @@
 // CMSC 330 Advanced Programming Languages
-// Project 1 Skeleton
-// UMGC CITE
-// August 2021
+// Project 1 - Parser and Display Program
+// Jacob Supplee
+// September 2026
 
-import java.awt.*;
+//I have added four new parseImages methods: ISOSCELES, PARALLELOGRAM, REGULAR_POLYGON, and TEXT 
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -68,6 +68,37 @@ class Parser {
             width = lexer.getNumber();
             Rectangle rectangle = new Rectangle(color, point, height, width);
             scene.addImage(rectangle);
+        } else if (imageToken == Token.ISOSCELES) { //Added ISOSCELES parser
+            verifyNextToken(Token.HEIGHT);
+            verifyNextToken(Token.NUMBER);
+            height = lexer.getNumber();
+            verifyNextToken(Token.WIDTH);
+            verifyNextToken(Token.NUMBER);
+            width = lexer.getNumber();
+            IsoscelesTriangle triangle = new IsoscelesTriangle(color, point, height, width); //Constructor
+            scene.addImage(triangle); 
+        } else if (imageToken == Token.PARALLELOGRAM) { //Added PARALLELOGRAM parser 
+            int[] lowerRight = getNumberList(2); 
+            Point lowerRightPoint = new Point(lowerRight[0], lowerRight[1]); //Parse the lower-right point           
+            verifyNextToken(Token.OFFSET);
+            verifyNextToken(Token.NUMBER);
+            offset = lexer.getNumber(); //Parse the horizontal offset of the parallelogram
+            Parallelogram parallelogram = new Parallelogram(color, point, lowerRightPoint, offset); //Constructor
+            scene.addImage(parallelogram); 
+        } else if (imageToken == Token.REGULAR_POLYGON) { //Added REGULAR_POLYGON parser   
+            verifyNextToken(Token.SIDES); //Parses number of sides
+            verifyNextToken(Token.NUMBER);
+            int sides = lexer.getNumber();
+            verifyNextToken(Token.RADIUS); //Parses radius
+            verifyNextToken(Token.NUMBER);
+            radius = lexer.getNumber();
+            RegularPolygon polygon = new RegularPolygon(color, sides, point, radius); //Constructor
+            scene.addImage(polygon); //Adds polygon to scene      
+        } else if (imageToken == Token.TEXT) { //Added TEXT parser
+            verifyNextToken(Token.STRING); //Parses text
+            String textString = lexer.getLexeme();
+            Text text = new Text(color, point, textString); //Constructor
+            scene.addImage(text);
         } else {
              throw new SyntaxError(lexer.getLineNo(), "Unexpected image name " + imageToken);
         }
