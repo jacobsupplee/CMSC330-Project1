@@ -25,7 +25,6 @@ class IsoscelesTriangle extends SolidPolygon {
             topVertex.y + height,
             topVertex.y + height
         };
-        //Creates the polygon using calculated coordinates
         createPolygon(x_points, y_points);
     }
 }
