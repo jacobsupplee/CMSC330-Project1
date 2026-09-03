@@ -1,7 +1,7 @@
 // CMSC 330 Advanced Programming Languages
-// Project 1 Skeleton
-// UMGC CITE
-// August 2021
+// Project 1 - Parser and Display Program
+// Jacob Supplee
+// September 2026
 
 import java.io.*;
 
@@ -22,6 +22,7 @@ class Lexer {
     }
 
     // Returns the next token in the input stream
+    
 
     public Token getNextToken() throws LexicalError, IOException {
         int token = tokenizer.nextToken();
@@ -35,6 +36,8 @@ class Lexer {
                 return Token.IDENTIFIER;
             case StreamTokenizer.TT_EOF:
                 return Token.EOF;
+            case '"':
+                return Token.STRING; //Added case to handle STRING token w/ quotation mark
             default:
                 for (int i = 0; i < punctuation.length(); i++)
                     if (token == punctuation.charAt(i))
